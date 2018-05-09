@@ -1,0 +1,105 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>表单赋值取值</title>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.0.0/dist/css/bootstrap.css"/>
+    <script type="text/javascript" src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+    <script type="text/javascript" src="../src/jquery.formplus.js"></script>
+    <style>
+        .hide {
+            display: none;
+        }
+
+        form {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <form>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Example Input</label>
+                <input name="text" type="text" class="form-control" id="exampleFormControlInput1">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput2">Example Input</label>
+                <input name="text" type="text" class="form-control" id="exampleFormControlInput2">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput2">Example Checkbox</label>
+                <div class="custom-control custom-checkbox">
+                    <input name="check" type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1">Check this custom checkbox1</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input name="check" type="checkbox" class="custom-control-input" id="customCheck2">
+                    <label class="custom-control-label" for="customCheck2">Check this custom checkbox2</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput2">Example Radio</label>
+                <div class="custom-control custom-radio">
+                    <input name="radio" type="radio" id="customRadio1" class="custom-control-input" value="true">
+                    <label class="custom-control-label" for="customRadio1">Toggle this custom radio</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input name="radio" type="radio" id="customRadio2" class="custom-control-input" value="false">
+                    <label class="custom-control-label" for="customRadio2">Or toggle this other custom radio</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput3">Email address</label>
+                <input name="email" type="email" class="form-control" id="exampleFormControlInput3"
+                       placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Example select</label>
+                <select name="single" class="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">Example multiple select</label>
+                <select name="multiple" multiple class="form-control" id="exampleFormControlSelect2">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Example textarea</label>
+                <textarea name="area" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <button id="btnGet" type="button" class="btn btn-success">获取表单值</button>
+            <p id="jsonResult"></p>
+        </form>
+    </div>
+
+</div>
+<script>
+    $(function () {
+        $('form').formData({
+            check: ['','on'],
+            radio: true,
+            text: [1, 2],
+            email: '123@email.com',
+            single: 2,
+            multiple: [2, 3],
+            area: 'Example textarea',
+        });
+
+        $('#btnGet').on('click', function () {
+            $('#jsonResult').html(JSON.stringify($('form').formData()));
+        })
+    });
+</script>
+</body>
+</html>
