@@ -11,12 +11,15 @@
  *
  *
  * 方法名:formDisable
- * 方法说明:禁用或启用表单
+ * 方法说明:禁用表单
  * 调用:
  * $('#formid').formDisable()
- * $('#formid').formDisable(true)
- * 参数说明:
- * @param true为禁用表单,其他值为启用表单
+ *
+ *
+ * 方法名:formEnable
+ * 方法说明:启用表单
+ * 调用:
+ * $('#formid').formEnable()
  *
  *
  * 方法名:selectValue
@@ -134,35 +137,50 @@
         }
     };
 
-    $.fn.formDisable = function (isDisabled) {
+    $.fn.formDisable = function () {
         var $form = $(this);
-        if (isDisabled) {
-            var attr = 'disable';
-            $form.data('formStatus', attr);
-            $form.find(':text').attr('disabled', 'true');
-            $form.find('textarea').attr('disabled', 'true');
-            $form.find('select').attr('disabled', 'true').trigger('attr.update');
-            $form.find(':radio').attr('disabled', 'true');
-            $form.find(':checkbox').attr('disabled', 'true');
-        } else {
-            attr = 'enable';
-            $form.data('formStatus', attr);
-            $form.find(':text').removeAttr('disabled');
-            $form.find('textarea').removeAttr('disabled');
-            $form.find('select').removeAttr('disabled').trigger('attr.update');
-            $form.find(':radio').removeAttr('disabled');
-            $form.find(':checkbox').removeAttr('disabled');
-        }
+        var attr = 'disable';
+        $form.data('formStatus', attr);
+        $form.find(':text').attr('disabled', 'true');
+        $form.find('textarea').attr('disabled', 'true');
+        $form.find('select').attr('disabled', 'true').trigger('attr.update');
+        $form.find(':radio').attr('disabled', 'true');
+        $form.find(':checkbox').attr('disabled', 'true');
+    };
+
+    $.fn.formEnable = function () {
+        var $form = $(this);
+        attr = 'enable';
+        $form.data('formStatus', attr);
+        $form.find(':text').removeAttr('disabled');
+        $form.find('textarea').removeAttr('disabled');
+        $form.find('select').removeAttr('disabled').trigger('attr.update');
+        $form.find(':radio').removeAttr('disabled');
+        $form.find(':checkbox').removeAttr('disabled');
     };
 
     $.fn.selectValue = function () {
-        return $(this).find('option:selected').attr('value');
+        var $select = $(this);
+        var tagName = $select[0].tagName;
+        if (tagName == 'SELECT') {
+            return $.map($select.find('option:selected'), function (option) {
+                return $(option).attr('value') || $(option).text();
+            }).join();
+        } else {
+            return undefined;
+        }
     };
 
     $.fn.selectText = function () {
-        var elem = $(this).find('option:selected');
-        var str = (elem.attr('value') || '') == '' ? '' : elem.text();
-        return str;
+        var $select = $(this);
+        var tagName = $select[0].tagName;
+        if (tagName == 'SELECT') {
+            return $.map($select.find('option:selected'), function (option) {
+                return $(option).text();
+            }).join();
+        } else {
+            return undefined;
+        }
     };
 
 })(jQuery);

@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>表单赋值取值</title>
+    <title>获取select值或文本</title>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.0.0/dist/css/bootstrap.css"/>
     <script type="text/javascript" src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
     <script type="text/javascript" src="../src/jquery.formplus.js"></script>
@@ -78,7 +78,10 @@
                 <label for="exampleFormControlTextarea1">Example textarea</label>
                 <textarea name="area" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
-            <button id="btnGet" type="button" class="btn btn-success">获取表单值</button>
+            <button id="btnSelectValue" type="button" class="btn btn-success">获取第一个select取值</button>
+            <button id="btnSelectText" type="button" class="btn btn-success">获取第一个select文本</button>
+            <button id="btnSelectValue2" type="button" class="btn btn-success">获取第一个select取值</button>
+            <button id="btnSelectText2" type="button" class="btn btn-success">获取第一个select文本</button>
             <p id="jsonResult"></p>
         </form>
     </div>
@@ -96,9 +99,22 @@
             area: 'Example textarea',
         });
 
-        $('#btnGet').on('click', function () {
-            $('#jsonResult').html(JSON.stringify($('form').formData()));
-        })
+        $('#btnSelectValue').on('click', function () {
+            $('#jsonResult').html($('select').eq(0).selectValue());
+        });
+
+        $('#btnSelectText').on('click', function () {
+            $('#jsonResult').html($('select').eq(0).selectText());
+        });
+
+
+        $('#btnSelectValue2').on('click', function () {
+            $('#jsonResult').html($('select').eq(1).selectValue());
+        });
+
+        $('#btnSelectText2').on('click', function () {
+            $('#jsonResult').html($('select').eq(1).selectText());
+        });
     });
 </script>
 </body>
